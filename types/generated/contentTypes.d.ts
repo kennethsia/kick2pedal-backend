@@ -369,9 +369,55 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiCategoryCategory extends Struct.CollectionTypeSchema {
+  collectionName: 'categories';
+  info: {
+    description: 'Race categories for different age groups, genders, and distances';
+    displayName: 'Category';
+    pluralName: 'categories';
+    singularName: 'category';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    additional_registrations_1: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::registration.registration'
+    >;
+    additional_registrations_2: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::registration.registration'
+    >;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    events: Schema.Attribute.Relation<'manyToMany', 'api::event.event'>;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::category.category'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    registrations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::registration.registration'
+    >;
+    title: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   collectionName: 'events';
   info: {
+    description: '';
     displayName: 'Event';
     pluralName: 'events';
     singularName: 'event';
@@ -381,11 +427,16 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
   attributes: {
     capacity: Schema.Attribute.Integer;
+    categories: Schema.Attribute.Relation<
+      'manyToMany',
+      'api::category.category'
+    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     date: Schema.Attribute.Date;
     description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::event.event'> &
       Schema.Attribute.Private;
@@ -435,6 +486,7 @@ export interface ApiRegistrationRegistration
   extends Struct.CollectionTypeSchema {
   collectionName: 'registrations';
   info: {
+    description: '';
     displayName: 'Registration';
     pluralName: 'registrations';
     singularName: 'registration';
@@ -443,6 +495,28 @@ export interface ApiRegistrationRegistration
     draftAndPublish: true;
   };
   attributes: {
+    additional_category_1: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::category.category'
+    >;
+    additional_category_2: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::category.category'
+    >;
+    amount: Schema.Attribute.Decimal;
+    bikeBrand: Schema.Attribute.Enumeration<
+      [
+        'PAPA_BIKE',
+        'BIKE8',
+        'XPUSH',
+        'MARU',
+        'CISCO',
+        'ROCKFISH',
+        'ZOOMI',
+        'OTHERS',
+      ]
+    >;
+    category: Schema.Attribute.Relation<'manyToOne', 'api::category.category'>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -463,6 +537,18 @@ export interface ApiRegistrationRegistration
     user: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.user'
+    >;
+    wheelsetBrand: Schema.Attribute.Enumeration<
+      [
+        'DATI',
+        'MOSTSPORT',
+        'SKAIDI',
+        'GIPSY',
+        'ROCKFISH',
+        'FU_JIN',
+        'TOMORROW',
+        'OTHERS',
+      ]
     >;
   };
 }
@@ -924,42 +1010,56 @@ export interface PluginUsersPermissionsUser
     draftAndPublish: false;
   };
   attributes: {
-    avatar: Schema.Attribute.Media<'images' | 'files'>;
+    birthGender: Schema.Attribute.Enumeration<['M', 'F']> &
+      Schema.Attribute.Required;
     blocked: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     confirmationToken: Schema.Attribute.String & Schema.Attribute.Private;
     confirmed: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    contactNumber: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    dateOfBirth: Schema.Attribute.Date & Schema.Attribute.Required;
     email: Schema.Attribute.Email &
       Schema.Attribute.Required &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    firstname: Schema.Attribute.String;
-    lastname: Schema.Attribute.String;
+    firstName: Schema.Attribute.String & Schema.Attribute.Required;
+    foreignCountry: Schema.Attribute.String;
+    identificationDocument: Schema.Attribute.Media<'files' | 'images'> &
+      Schema.Attribute.Required;
+    lastName: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'plugin::users-permissions.user'
     > &
       Schema.Attribute.Private;
+    middleName: Schema.Attribute.String;
+    nickname: Schema.Attribute.String;
+    parentFullName: Schema.Attribute.String & Schema.Attribute.Required;
     password: Schema.Attribute.Password &
       Schema.Attribute.Private &
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
+    plateNumber: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
+    racerPhoto: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
     registrations: Schema.Attribute.Relation<
       'oneToMany',
       'api::registration.registration'
     >;
     resetPasswordToken: Schema.Attribute.String & Schema.Attribute.Private;
+    riderType: Schema.Attribute.Enumeration<['FILIPINO', 'FOREIGN']> &
+      Schema.Attribute.Required;
     role: Schema.Attribute.Relation<
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    teamName: Schema.Attribute.String;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -982,6 +1082,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::category.category': ApiCategoryCategory;
       'api::event.event': ApiEventEvent;
       'api::home-page.home-page': ApiHomePageHomePage;
       'api::registration.registration': ApiRegistrationRegistration;

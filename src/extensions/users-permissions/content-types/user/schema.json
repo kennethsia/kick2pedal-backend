@@ -65,19 +65,72 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "firstname": {
+    "firstName": {
+      "type": "string",
+      "required": true
+    },
+    "middleName": {
       "type": "string"
     },
-    "lastname": {
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "nickname": {
       "type": "string"
     },
-    "avatar": {
+    "dateOfBirth": {
+      "type": "date",
+      "required": true
+    },
+    "birthGender": {
+      "type": "enumeration",
+      "enum": [
+        "M",
+        "F"
+      ],
+      "required": true
+    },
+    "parentFullName": {
+      "type": "string",
+      "required": true
+    },
+    "contactNumber": {
+      "type": "string",
+      "required": true
+    },
+    "plateNumber": {
+      "type": "string"
+    },
+    "racerPhoto": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
-        "images",
-        "files"
+        "images"
+      ]
+    },
+    "teamName": {
+      "type": "string"
+    },
+    "riderType": {
+      "type": "enumeration",
+      "enum": [
+        "FILIPINO",
+        "FOREIGN"
+      ],
+      "required": true
+    },
+    "foreignCountry": {
+      "type": "string"
+    },
+    "identificationDocument": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "files",
+        "images"
       ]
     },
     "registrations": {

@@ -4,7 +4,8 @@
   "info": {
     "singularName": "registration",
     "pluralName": "registrations",
-    "displayName": "Registration"
+    "displayName": "Registration",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -29,6 +30,53 @@
       "relation": "manyToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "registrations"
+    },
+    "bikeBrand": {
+      "type": "enumeration",
+      "enum": [
+        "PAPA_BIKE",
+        "BIKE8",
+        "XPUSH",
+        "MARU",
+        "CISCO",
+        "ROCKFISH",
+        "ZOOMI",
+        "OTHERS"
+      ]
+    },
+    "wheelsetBrand": {
+      "type": "enumeration",
+      "enum": [
+        "DATI",
+        "MOSTSPORT",
+        "SKAIDI",
+        "GIPSY",
+        "ROCKFISH",
+        "FU_JIN",
+        "TOMORROW",
+        "OTHERS"
+      ]
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "registrations"
+    },
+    "additional_category_1": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "additional_registrations_1"
+    },
+    "additional_category_2": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "additional_registrations_2"
+    },
+    "amount": {
+      "type": "decimal"
     }
   }
 }
