@@ -99,9 +99,6 @@
       "type": "string",
       "required": true
     },
-    "plateNumber": {
-      "type": "string"
-    },
     "racerPhoto": {
       "type": "media",
       "multiple": false,
@@ -127,7 +124,7 @@
     "identificationDocument": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "files",
         "images"

@@ -527,6 +527,9 @@ export interface ApiRegistrationRegistration
       'api::registration.registration'
     > &
       Schema.Attribute.Private;
+    proofOfPayment: Schema.Attribute.Media<
+      'images' | 'files' | 'videos' | 'audios'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     registration_status: Schema.Attribute.Enumeration<
       ['registered', 'waitlisted', 'confirmed']
@@ -1027,8 +1030,7 @@ export interface PluginUsersPermissionsUser
       }>;
     firstName: Schema.Attribute.String & Schema.Attribute.Required;
     foreignCountry: Schema.Attribute.String;
-    identificationDocument: Schema.Attribute.Media<'files' | 'images'> &
-      Schema.Attribute.Required;
+    identificationDocument: Schema.Attribute.Media<'files' | 'images'>;
     lastName: Schema.Attribute.String & Schema.Attribute.Required;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
@@ -1044,7 +1046,6 @@ export interface PluginUsersPermissionsUser
       Schema.Attribute.SetMinMaxLength<{
         minLength: 6;
       }>;
-    plateNumber: Schema.Attribute.String;
     provider: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     racerPhoto: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
