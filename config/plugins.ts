@@ -23,7 +23,7 @@ export default ({ env }) => ({
     config: {
       provider: "strapi-provider-email-resend",
       providerOptions: {
-        apiKey: "re_DBCoTP9u_AAL3v4ZQ1AdeNF5pq9LGxiyG", // Required
+        apiKey: env("RESEND_API_KEY"),
       },
       settings: {
         defaultFrom: "no-reply@cms.kick2pedal.net",
