@@ -37,13 +37,13 @@ export default {
       // });
       await strapi.plugins["email"].services.email.send({
         to: registration.user.email,
-        // from: "no-reply@cms.kick2pedal.net", //e.g. single sender verification in SendGrid
+        from: "no-reply@cms.kick2pedal.net", //e.g. single sender verification in SendGrid
         // cc: "valid email address",
         // bcc: "valid email address",
         // replyTo: "valid email address",
-        subject: "The Strapi Email plugin worked successfully",
-        text: "Hello world!",
-        html: "Hello world!",
+        subject: `Registration Confirmation - ${registration.event.title}`,
+        text: "Thank you! you are registered",
+        html: "Thank you! you are registered",
       });
     } catch (error) {
       console.error("Error sending registration confirmation email:", error);
