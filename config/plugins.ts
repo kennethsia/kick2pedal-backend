@@ -21,10 +21,13 @@ export default ({ env }) => ({
   },
   email: {
     config: {
-      provider: "sendmail",
+      provider: "strapi-provider-email-resend",
+      providerOptions: {
+        apiKey: "re_DBCoTP9u_AAL3v4ZQ1AdeNF5pq9LGxiyG", // Required
+      },
       settings: {
-        defaultFrom: env("SMTP_FROM", "no-reply@cms.kick2pedal.net"),
-        defaultReplyTo: env("SMTP_REPLY_TO", "no-reply@cms.kick2pedal.net"),
+        defaultFrom: "no-reply@cms.kick2pedal.net",
+        defaultReplyTo: "no-reply@cms.kick2pedal.net",
       },
     },
   },
