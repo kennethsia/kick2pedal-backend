@@ -19,4 +19,13 @@ export default ({ env }) => ({
       },
     },
   },
+  email: {
+    config: {
+      provider: "sendmail",
+      settings: {
+        defaultFrom: env("SMTP_FROM", "no-reply@cms.kick2pedal.net"),
+        defaultReplyTo: env("SMTP_REPLY_TO", "no-reply@cms.kick2pedal.net"),
+      },
+    },
+  },
 });
