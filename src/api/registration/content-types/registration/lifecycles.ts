@@ -39,11 +39,23 @@ export default {
         to: registration.user.email,
         from: "no-reply@cms.kick2pedal.net", //e.g. single sender verification in SendGrid
         // cc: "valid email address",
-        // bcc: "valid email address",
+        bcc: "sia.kennethpaulo@gmail.com",
         // replyTo: "valid email address",
-        subject: `Registration Confirmation - ${registration.event.title}`,
+        subject: `K@P Runbike - Registration Confirmation - ${registration.event.title}`,
         text: "Thank you! you are registered",
-        html: "Thank you! you are registered",
+        html: `
+            <h1>Registration Confirmation</h1>
+            <p>Dear ${registration.user.firstName},</p>
+            <p>Thank you for registering for ${registration.event.title}.</p>
+            <p>Registration Details:</p>
+            <ul>
+              <li>Event: ${registration.event.title}</li>
+              <li>Amount: ${registration.amount}</li>
+            </ul>
+            <p>You can view your registration status in your <a href="https://kick2pedal.net/dashboard">member portal</a></p>
+            <p>We will review your registration and update you once it's confirmed.</p>
+            <p>Best regards,<br>Kick2Pedal Team</p>
+          `,
       });
     } catch (error) {
       console.error("Error sending registration confirmation email:", error);
