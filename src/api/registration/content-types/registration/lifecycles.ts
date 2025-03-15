@@ -41,7 +41,7 @@ export default {
         // cc: "valid email address",
         bcc: "sia.kennethpaulo@gmail.com",
         // replyTo: "valid email address",
-        subject: `K@P Runbike - Registration Confirmation - ${registration.event.title}`,
+        subject: `K2P Runbike - Registration Confirmation - ${registration.event.title}`,
         text: "Thank you! you are registered",
         html: `
             <h1>Registration Confirmation</h1>
